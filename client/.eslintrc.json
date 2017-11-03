@@ -1,0 +1,28 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "extends": [
+    "angular"
+  ],
+  "rules": {
+    // "no-unused-vars": "off",
+    // "no-undef":"off",
+    // "angular/on-watch": 0
+  },
+  "globals": {
+    "angular": true
+  },
+  "settings": {
+    "angular": 1
+  }
+}
