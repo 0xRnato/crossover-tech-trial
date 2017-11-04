@@ -6,6 +6,6 @@ module.exports = (app) => {
   Object.keys(routes).forEach((routeName) => {
     const router = express.Router();
     require(`./${routeName}`)(router);
-    app.use(`/${changeCase.paramCase(routeName.split('.')[0])}`, router);
+    app.use(`/api/${changeCase.paramCase(routeName.split('.')[0])}`, router);
   });
 };

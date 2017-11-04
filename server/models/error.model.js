@@ -19,6 +19,10 @@ const errors = {
     message: 'This data it\'s too long for this field.',
     errorCode: 10005,
   },
+  errorPasswordWrong: {
+    message: 'Wrong password, please try again.',
+    errorCode: 10006,
+  },
 };
 
 module.exports = errors;

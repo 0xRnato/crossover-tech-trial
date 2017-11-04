@@ -32,6 +32,11 @@ class UserModel {
     return user;
   }
 
+  async findByUsername(username) {
+    const user = await this.User.findOne({ where: { username } });
+    return user;
+  }
+
   async create(username, password) {
     try {
       const user = await this.User.create({ username, password });

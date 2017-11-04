@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const FailModel = require('../models/fail.model');
 const errorModel = require('../models/error.model');
-// TODO: apply the response model and
+
 const auth = (req, res, next) => {
   let token = req.headers.authorization;
 
@@ -15,8 +15,8 @@ const auth = (req, res, next) => {
       };
       req.headers.authorization = credentials;
       next();
-    } else if (token[1] === 'Bearer') {
-      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    } else if (token[0] === 'Bearer') {
+      jwt.verify(token[1], process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
           res.json({// TODO: trocar para o FailModel
             success: false,
