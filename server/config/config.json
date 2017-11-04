@@ -1,0 +1,35 @@
+{
+  "dev": {
+    "NODE_PORT": 3000,
+    "DB_HOST": "localhost",
+    "DB_NAME":"crossover-auction-dev",
+    "DB_USER":"root",
+    "DB_PW": "121473",
+    "DB_PROTOCOL": "mysql",
+    "DB_PORT": "3306",
+    "JWT_SECRET": "Cr0ss0v3r-dev",
+    "JWT_TIMEOUT": "200m"
+  },
+  "test": {
+    "NODE_PORT": 3003,
+    "DB_HOST": "localhost",
+    "DB_NAME":"crossover-auction-test",
+    "DB_USER":"root",
+    "DB_PW": "121473",
+    "DB_PROTOCOL": "mysql",
+    "DB_PORT": "3306",
+    "JWT_SECRET": "Cr0ss0v3r-test",
+    "JWT_TIMEOUT": "5s"
+  },
+  "prod": {
+    "NODE_PORT": 4000,
+    "DB_HOST": "localhost",
+    "DB_NAME":"crossover-auction-prod",
+    "DB_USER":"root",
+    "DB_PW": "121473",
+    "DB_PROTOCOL": "mysql",
+    "DB_PORT": "3306",
+    "JWT_SECRET": "Cr0ss0v3r-prod",
+    "JWT_TIMEOUT": "20m"
+  }
+}

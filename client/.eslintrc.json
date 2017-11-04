@@ -15,9 +15,9 @@
     "angular"
   ],
   "rules": {
-    // "no-unused-vars": "off",
-    // "no-undef":"off",
-    // "angular/on-watch": 0
+    "no-unused-vars": "off",
+    "no-undef":"off",
+    "angular/on-watch": 0
   },
   "globals": {
     "angular": true

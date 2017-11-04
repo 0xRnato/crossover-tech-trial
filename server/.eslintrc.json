@@ -13,5 +13,15 @@
   },
   "extends": [
     "airbnb-base"
-  ]
+  ],
+  "rules": {
+    "global-require": "off",
+    "import/no-dynamic-require": "off",
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "max-len": ["warn", 120],
+    "curly": ["error", "multi-or-nest"],
+    "no-unused-vars": "warn",
+    "func-names": ["error", "never"],
+    "no-console": "off"
+  }
 }

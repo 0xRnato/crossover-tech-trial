@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `crossover-auction-dev`.`user` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(20) NOT NULL,
   `password` VARCHAR(80) NOT NULL,
-  `coins` DECIMAL(7,2) NOT NULL DEFAULT 1000,00,
+  `coins` DECIMAL(7,2) NOT NULL DEFAULT 1000.00,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `crossover-auction-prod`.`user` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(20) NOT NULL,
   `password` VARCHAR(80) NOT NULL,
-  `coins` DECIMAL(7,2) NOT NULL DEFAULT 1000,00,
+  `coins` DECIMAL(7,2) NOT NULL DEFAULT 1000.00,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
