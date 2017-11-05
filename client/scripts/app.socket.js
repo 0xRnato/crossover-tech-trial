@@ -17,9 +17,9 @@
     return service;
 
     function _on(eventName, callback) {
-      socket.on(eventName, () => {
-        var args = arguments;
-        $rootScope.$apply(() => {
+      socket.on(eventName, function () {
+        const args = arguments;
+        $rootScope.$apply(function () {
           callback.apply(socket, args);
         });
       });
@@ -27,7 +27,7 @@
 
     function _emit(eventName, data, callback) {
       socket.emit(eventName, data, function () {
-        var args = arguments;
+        const args = arguments;
         $rootScope.$apply(function () {
           if (callback) {
             callback.apply(socket, args);

@@ -5,6 +5,7 @@
     'ngRoute',
 
     'app.routes',
+    'app.socket',
     'app.login',
     'app.register',
     'app.home',
@@ -15,24 +16,8 @@
   ]);
 
   angular.module('app.routes', []);
+  angular.module('app.socket', []);
   angular.module('app.login', []);
   angular.module('app.register', []);
   angular.module('app.home', []);
 })();
-
-(function () {
-  'use strict';
-
-  angular
-    .module('app')
-    .config(mainConfig)
-
-  mainConfig.$inject = ['$mdThemingProvider'];
-
-  function mainConfig($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-      .primaryPalette('blue-grey')
-      .accentPalette('grey');
-  }
-
-}());

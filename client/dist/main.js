@@ -1,67 +1,106 @@
 'use strict';
 
 (function () {
-    'use strict';
+  'use strict';
 
-    angular.module('app', ['ngRoute', 'app.routes', 'app.login', 'app.register', 'app.home', 'ngMaterial', 'angular-encryption', 'base64']);
+  angular.module('app', ['ngRoute', 'app.routes', 'app.socket', 'app.login', 'app.register', 'app.home', 'ngMaterial', 'angular-encryption', 'base64']);
 
-    angular.module('app.routes', []);
-    angular.module('app.login', []);
-    angular.module('app.register', []);
-    angular.module('app.home', []);
+  angular.module('app.routes', []);
+  angular.module('app.socket', []);
+  angular.module('app.login', []);
+  angular.module('app.register', []);
+  angular.module('app.home', []);
 })();
 
 (function () {
-    'use strict';
+  'use strict';
 
-    angular.module('app').config(mainConfig);
+  angular.module('app.routes').config(RoutesConfig);
 
-    mainConfig.$inject = ['$mdThemingProvider'];
+  RoutesConfig.$inject = ['$routeProvider', '$locationProvider'];
 
-    function mainConfig($mdThemingProvider) {
-        $mdThemingProvider.theme('default').primaryPalette('blue-grey').accentPalette('grey');
-    }
+  function RoutesConfig($routeProvider, $locationProvider) {
+    $locationProvider.hashPrefix('');
+    $routeProvider.when('/', {
+      templateUrl: 'views/login.html',
+      controller: 'LoginController',
+      controllerAs: 'loginController'
+    }).when('/register', {
+      templateUrl: 'views/register.html',
+      controller: 'RegisterController',
+      controllerAs: 'registerController'
+    }).when('/home', {
+      templateUrl: 'views/home.html',
+      controller: 'HomeController',
+      controllerAs: 'homeController'
+    }).otherwise({ redirectTo: '/' });
+  }
 })();
 
 (function () {
-    'use strict';
+  'use strict';
 
-    angular.module('app.routes').config(RoutesConfig);
+  angular.module('app').run(runBlock);
 
-    RoutesConfig.$inject = ['$routeProvider', '$locationProvider'];
+  runBlock.$inject = ['$rootScope', '$location'];
 
-    function RoutesConfig($routeProvider, $locationProvider) {
-        $locationProvider.hashPrefix('');
-        $routeProvider.when('/', {
-            templateUrl: 'views/login.html',
-            controller: 'LoginController',
-            controllerAs: 'loginController'
-        }).when('/register', {
-            templateUrl: 'views/register.html',
-            controller: 'RegisterController',
-            controllerAs: 'registerController'
-        }).when('/home', {
-            templateUrl: 'views/home.html',
-            controller: 'HomeController',
-            controllerAs: 'homeController'
-        }).otherwise({ redirectTo: '/' });
-    }
+  function runBlock($rootScope, $location) {
+    $rootScope.$on('$locationChangeStart', function () {
+      var restrictedPage = $location.path() == '/home';
+      var loggedIn = $rootScope.userSession;
+      if (restrictedPage && !loggedIn) {
+        $location.path('/login');
+      }
+    });
+  }
 })();
 
 (function () {
-    'use strict';
+  'use strict';
 
-    angular.module('app').run(runBlock);
+  angular.module('app').config(mainConfig);
 
-    runBlock.$inject = ['$rootScope', '$location'];
+  mainConfig.$inject = ['$mdThemingProvider'];
 
-    function runBlock($rootScope, $location) {
-        $rootScope.$on('$locationChangeStart', function () {
-            var restrictedPage = $location.path() == '/home';
-            var loggedIn = $rootScope.userSession;
-            if (restrictedPage && !loggedIn) {
-                $location.path('/login');
-            }
+  function mainConfig($mdThemingProvider) {
+    $mdThemingProvider.theme('default').primaryPalette('blue-grey').accentPalette('grey');
+  }
+})();
+
+(function () {
+  'use strict';
+
+  angular.module('app.socket').factory('socket', socket);
+
+  socket.$inject = ['$rootScope'];
+
+  function socket($rootScope) {
+    var socket = io.connect();
+    var service = {
+      on: _on,
+      emit: _emit
+    };
+
+    return service;
+
+    function _on(eventName, callback) {
+      socket.on(eventName, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
         });
+      });
     }
+
+    function _emit(eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      });
+    }
+  }
 })();

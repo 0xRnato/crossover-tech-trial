@@ -10,6 +10,7 @@
     '$mdToast',
     '$location',
     '$rootScope',
+    'socket',
     '$document',
     "$scope",
     '$anchorScroll'
@@ -20,11 +21,13 @@
     $mdToast,
     $location,
     $rootScope,
+    socket,
     $document,
     $scope,
     $anchorScroll
   ) {
-    var vm = this;
+    const vm = this;
+    let userSession;
 
     vm.logout = () => {
       vm.dataLoading = true;
@@ -37,7 +40,7 @@
           if (response.data.success) {
             delete $rootScope.userSession;
             $mdToast.show($mdToast.simple().textContent('Bye'));
-            $rootScope.socket.disconnect();
+            socket.disconnect();
             $location.path('/login');
           } else {
             $mdToast.show($mdToast.simple().textContent(response.data.err));
@@ -46,7 +49,7 @@
         },
         function errorCallback(response) {
           $mdToast.show($mdToast.simple()
-            .textContent('Status error: ' + response.status + ' - ' + response.statusText)
+            .textContent(`Status error: ${response.status} - ${response.statusText}`)
           );
           vm.dataLoading = false;
         }
@@ -59,22 +62,22 @@
           from: $rootScope.userSession.username,
           message: vm.message
         }
-        $rootScope.socket.emit('msg', msg);
+        socket.emit('msg', msg);
         vm.messages.push(msg);
         vm.message = '';
         $scope.$digest();
       }
     }
 
-    $rootScope.socket.on('welcome', (_username) => {
-      $mdToast.show($mdToast.simple().textContent(_username + ' has connected to the home.'));
+    socket.on('welcome', (_username) => {
+      $mdToast.show($mdToast.simple().textContent(`${_username} has connected to the auction.`));
     });
 
-    $rootScope.socket.on('left', (_username) => {
-      $mdToast.show($mdToast.simple().textContent(_username + ' has disconnected from the home.'));
+    socket.on('left', (_username) => {
+      $mdToast.show($mdToast.simple().textContent(`${_username} has disconnected from the auction.`));
     });
 
-    $rootScope.socket.on('msg', (_message) => {
+    socket.on('msg', (_message) => {
       vm.messages.push(_message);
       $scope.$digest();
     });
@@ -82,7 +85,9 @@
     activate();
 
     function activate() {
-      $mdToast.show($mdToast.simple().textContent('Welcome ' + userSession.username));
+      userSession = $rootScope.userSession;
+      $mdToast.show($mdToast.simple().textContent('Welcome ' + userSession.userObject.username));
+      socket.emit('login', userSession.userObject.username);
       vm.messages = [];
     }
   }
