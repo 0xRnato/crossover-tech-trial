@@ -13,7 +13,7 @@ module.exports = (router) => {
       if (!err.data || !err.data.type || !err.data.errorCode || !err.data.message)
         res.status(500).send(new FailModel());
       else
-        res.status(400).send(err);
+        res.status(200).send(err);
     }
   });
 
@@ -34,7 +34,7 @@ module.exports = (router) => {
       if (!err.data || !err.data.type || !err.data.errorCode || !err.data.message)
         res.status(500).send(new FailModel());
       else
-        res.status(400).send(err);
+        res.status(200).send(err);
     }
   });
 };

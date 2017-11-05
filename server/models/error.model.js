@@ -23,6 +23,10 @@ const errors = {
     message: 'Wrong password, please try again.',
     errorCode: 10006,
   },
+  errorUserNotFound: {
+    message: 'This user was not found in our database.',
+    errorCode: 10007,
+  },
 };
 
 module.exports = errors;
