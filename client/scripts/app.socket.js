@@ -11,7 +11,8 @@
     const socket = io.connect();
     const service = {
       on: _on,
-      emit: _emit
+      emit: _emit,
+      disconnect: _disconnect
     };
 
     return service;
@@ -34,6 +35,10 @@
           }
         });
       });
+    }
+
+    function _disconnect() {
+      socket.disconnect();
     }
   }
 })();

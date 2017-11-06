@@ -1,4 +1,3 @@
-<md-progress-linear ng-if="loginController.dataLoading" md-mode="indeterminate"></md-progress-linear>
 <div class="md-padding">
   <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center center">
     <div flex-xs flex-gt-xs="40" layout="column" layout-align="center center">
@@ -31,3 +30,4 @@
     </div>
   </md-content>
 </div>
+<md-progress-linear class="md-progress-bottom" ng-if="loginController.dataLoading" md-mode="indeterminate" aria-label="label"></md-progress-linear>

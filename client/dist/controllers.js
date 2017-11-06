@@ -5,32 +5,23 @@
 
   angular.module('app.home').controller('HomeController', HomeController);
 
-  HomeController.$inject = ['HomeService', '$mdToast', '$location', '$rootScope', 'socket', '$document', "$scope", '$anchorScroll'];
+  HomeController.$inject = ['HomeService', '$mdToast', '$location', '$rootScope', 'socket', '$document', '$window', "$scope", '$anchorScroll'];
 
-  function HomeController(HomeService, $mdToast, $location, $rootScope, socket, $document, $scope, $anchorScroll) {
+  function HomeController(HomeService, $mdToast, $location, $rootScope, socket, $document, $window, $scope, $anchorScroll) {
     var vm = this;
     var userSession = void 0;
 
-    vm.logout = function () {
+    vm.logout = function (forced) {
       vm.dataLoading = true;
-      HomeService.logout({
-        'userData': {
-          'username': angular.copy($rootScope.userSession.username)
-        }
-      }).then(function sucessCallback(response) {
-        if (response.data.success) {
-          delete $rootScope.userSession;
-          $mdToast.show($mdToast.simple().textContent('Bye'));
-          socket.disconnect();
-          $location.path('/login');
-        } else {
-          $mdToast.show($mdToast.simple().textContent(response.data.err));
-          vm.dataLoading = false;
-        }
-      }, function errorCallback(response) {
-        $mdToast.show($mdToast.simple().textContent('Status error: ' + response.status + ' - ' + response.statusText));
-        vm.dataLoading = false;
-      });
+      delete $rootScope.userSession;
+      if (forced) {
+        socket.emit('forceLogout', userSession.userObject.username);
+        $window.location.reload();
+      } else {
+        $mdToast.show($mdToast.simple().textContent('Bye'));
+        socket.emit('logout', userSession.userObject.username);
+        $window.location.reload();
+      }
     };
 
     vm.sendMsg = function () {
@@ -52,6 +43,11 @@
 
     socket.on('left', function (_username) {
       $mdToast.show($mdToast.simple().textContent(_username + ' has disconnected from the auction.'));
+    });
+
+    socket.on('alreadyLogged', function () {
+      $mdToast.show($mdToast.simple().textContent('This account has been logged in another place, so let\'s close this section.'));
+      vm.logout(true);
     });
 
     socket.on('msg', function (_message) {

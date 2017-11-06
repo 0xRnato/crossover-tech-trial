@@ -1,1 +1,14 @@
-HOME PAGE
+<md-content layout="column" flex>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <span>Crossover Auction</span>
+      <span flex></span> Welcome {{userSession.userObject.username}}
+      <md-button aria-label="logout" ng-click="homeController.logout()"> logout </md-button>
+    </div>
+  </md-toolbar>
+
+  <section layout="row" layout-wrap layout-align="center" class="home-section" style="overflow: auto;">
+  </section>
+
+</md-content>
+<md-progress-linear class="md-progress-bottom" ng-if="homeController.dataLoading" md-mode="indeterminate" aria-label="label"></md-progress-linear>

@@ -78,7 +78,8 @@
     var socket = io.connect();
     var service = {
       on: _on,
-      emit: _emit
+      emit: _emit,
+      disconnect: _disconnect
     };
 
     return service;
@@ -101,6 +102,10 @@
           }
         });
       });
+    }
+
+    function _disconnect() {
+      socket.disconnect();
     }
   }
 })();

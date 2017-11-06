@@ -1,15 +1,6 @@
 *{
   overflow-x: hidden;
 }
-.video-detail{
-  margin-left: auto;
-  margin-right: auto;
-}
-  .md-fab-fixed{
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-}
   .md-progress-bottom{
   position: fixed;
   bottom: 0;
@@ -22,18 +13,8 @@
   .form-login{
       width: 100%;
   }
-  .video-card-detail{
-      height: 85vh;
-  }
   .md-title-home{
       font-size: 13px;
-  }
-  md-card-header, .toolbar-link, .video-preview-detail, .video-detail{
-      cursor: pointer;
-      cursor: hand;
-  }
-  .video-card-home{
-      width: 20%;
   }
 }
 @media only screen and (max-width: 500px){
