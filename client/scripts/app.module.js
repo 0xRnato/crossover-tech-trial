@@ -9,6 +9,7 @@
     'app.login',
     'app.register',
     'app.home',
+    'myApp',
 
     'ngMaterial',
     'angular-encryption',
@@ -20,4 +21,5 @@
   angular.module('app.login', []);
   angular.module('app.register', []);
   angular.module('app.home', []);
+  angular.module('myApp', []);
 })();

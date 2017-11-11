@@ -13,8 +13,7 @@
     'socket',
     '$document',
     '$window',
-    "$scope",
-    '$anchorScroll'
+    "$scope"
   ];
 
   function HomeController(
@@ -25,8 +24,7 @@
     socket,
     $document,
     $window,
-    $scope,
-    $anchorScroll
+    $scope
   ) {
     const vm = this;
     let userSession;
@@ -81,7 +79,13 @@
       userSession = $rootScope.userSession;
       $mdToast.show($mdToast.simple().textContent('Welcome ' + userSession.userObject.username));
       socket.emit('login', userSession.userObject.username);
-      vm.messages = [];
+      vm.messages = [{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'},{from: 'teste', message:'sdfdfsdsdfdsdf'}];
+      vm.todo = [
+        {name: 'Create a custom directive', completed: true},
+        {name: 'Learn about restrict', completed: true},
+        {name: 'Master scopes', completed: false}
+      ];
     }
   }
 })();
+

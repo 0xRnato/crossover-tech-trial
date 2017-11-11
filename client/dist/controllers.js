@@ -5,9 +5,9 @@
 
   angular.module('app.home').controller('HomeController', HomeController);
 
-  HomeController.$inject = ['HomeService', '$mdToast', '$location', '$rootScope', 'socket', '$document', '$window', "$scope", '$anchorScroll'];
+  HomeController.$inject = ['HomeService', '$mdToast', '$location', '$rootScope', 'socket', '$document', '$window', "$scope"];
 
-  function HomeController(HomeService, $mdToast, $location, $rootScope, socket, $document, $window, $scope, $anchorScroll) {
+  function HomeController(HomeService, $mdToast, $location, $rootScope, socket, $document, $window, $scope) {
     var vm = this;
     var userSession = void 0;
 
@@ -61,7 +61,8 @@
       userSession = $rootScope.userSession;
       $mdToast.show($mdToast.simple().textContent('Welcome ' + userSession.userObject.username));
       socket.emit('login', userSession.userObject.username);
-      vm.messages = [];
+      vm.messages = [{ from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }, { from: 'teste', message: 'sdfdfsdsdfdsdf' }];
+      vm.todo = [{ name: 'Create a custom directive', completed: true }, { name: 'Learn about restrict', completed: true }, { name: 'Master scopes', completed: false }];
     }
   }
 })();

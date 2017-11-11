@@ -6,14 +6,15 @@ const babel = require('gulp-babel');
 const minify = require('gulp-minify');
 const cleanCSS = require('gulp-clean-css');
 
-gulp.task('dev', ['watch', 'replace', 'minify-main', 'minify-controllers', 'minify-services', 'minify-css']);
+gulp.task('dev', ['watch', 'replace', 'minify-main', 'minify-controllers', 'minify-services', 'minify-directives', 'minify-css']);
 
-gulp.task('prod', ['replace', 'minify-main', 'minify-controllers', 'minify-services', 'minify-css']);
+gulp.task('prod', ['replace', 'minify-main', 'minify-controllers', 'minify-services', 'minify-directives', 'minify-css']);
 
 gulp.task('watch', function () {
   gulp.watch('client/scripts/*.js', ['replace', 'minify-main']);
   gulp.watch('client/scripts/controllers/*.js', ['replace', 'minify-controllers']);
   gulp.watch('client/scripts/services/*.js', ['replace', 'minify-services']);
+  gulp.watch('client/scripts/directives/*.js', ['replace', 'minify-directives']);
   gulp.watch('client/styles/*.css', ['replace', 'minify-css']);
 });
 
@@ -56,6 +57,19 @@ gulp.task('minify-services', function () {
       '!client/scripts/services/*.spec.js',
       'client/scripts/services/*.js'])
     .pipe(concat('services.js'))
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(minify())
+    .pipe(gulp.dest('client/dist'));
+});
+
+gulp.task('minify-directives', function () {
+  return gulp
+    .src([
+      '!client/scripts/directives/*.spec.js',
+      'client/scripts/directives/*.js'])
+    .pipe(concat('directives.js'))
     .pipe(babel({
       presets: ['es2015']
     }))
